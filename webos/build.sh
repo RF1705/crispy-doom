@@ -10,8 +10,14 @@ HOST="${WEBOS_HOST:-arm-webos-linux-gnueabi}"
 command -v git >/dev/null
 command -v python3 >/dev/null
 command -v make >/dev/null
+command -v autoconf >/dev/null
+command -v automake >/dev/null
+command -v pkg-config >/dev/null
 
 mkdir -p "${ROOT}"
+export PKG_CONFIG_ALLOW_CROSS=1
+# The SDK should provide a target-specific pkg-config and sysroot.
+# Never fall back to libraries from the host system.
 if [[ ! -d "${SOURCE}/.git" ]]; then
   git clone --no-checkout https://github.com/fabiangreffrath/crispy-doom.git "${SOURCE}"
 fi
