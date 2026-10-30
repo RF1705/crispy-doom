@@ -1,0 +1,1 @@
+Place your own legally acquired IWAD files here before packaging, for example DOOM1.WAD, DOOM.WAD, DOOM2.WAD, or a compatible Freedoom IWAD. Files matching *.wad/*.WAD are ignored by git through the parent .gitignore. Commercial IWAD files must not be committed to this repository.
