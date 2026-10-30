@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 VERSION ?= 0.1.0
 ARCH ?= arm
-APP_ID := org.rf1705.crispydoom
+APP_ID := org.crispydoom.webos
 PKG_DIR := build/package
 IPK := build/$(APP_ID)_$(VERSION)_$(ARCH).ipk
 
