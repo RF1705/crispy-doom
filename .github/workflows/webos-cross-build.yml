@@ -59,6 +59,19 @@ jobs:
           "$sdk/bin/arm-webos-linux-gnueabi-gcc" -v
           find "$sysroot" -iname '*SDL*' | head -40 || true
 
+      - name: Prepare legacy Wayland scanner for TV SDK ABI
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/legacy-wayland"
+          docker run --rm --platform linux/amd64 \
+            -v "$RUNNER_TEMP/legacy-wayland:/out" ubuntu:20.04 bash -ec '
+              apt-get update -qq
+              DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends libwayland-bin
+              cp /usr/bin/wayland-scanner /out/wayland-scanner
+            '
+          chmod +x "$RUNNER_TEMP/legacy-wayland/wayland-scanner"
+          "$RUNNER_TEMP/legacy-wayland/wayland-scanner" --version
+
       - name: Build upstream SDL-webOS (same pinned source as starterless)
         run: |
           set -euo pipefail
@@ -72,7 +85,7 @@ jobs:
             -DCMAKE_BUILD_TYPE=Release \
             -DWEBOS=ON -DSDL_WEBOS_BROKEN_ABI=ON \
             -DSDL_SHARED=OFF -DSDL_STATIC=ON -DSDL_TEST=OFF -DSDL_TESTS=OFF \
-            -DWAYLAND_SCANNER=/usr/bin/wayland-scanner -DGAWK=/usr/bin/gawk
+            -DWAYLAND_SCANNER="$RUNNER_TEMP/legacy-wayland/wayland-scanner" -DGAWK=/usr/bin/gawk
           /usr/bin/cmake --build "$RUNNER_TEMP/sdl-build" --parallel 4
           /usr/bin/cmake --install "$RUNNER_TEMP/sdl-build"
           test -f "$RUNNER_TEMP/sdl-install/lib/libSDL2.a"
