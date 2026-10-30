@@ -67,9 +67,8 @@ jobs:
             -v "$RUNNER_TEMP/legacy-wayland:/out" ubuntu:20.04 bash -ec '
               apt-get update -qq
               DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends libwayland-bin
-              cp /usr/bin/wayland-scanner /out/wayland-scanner
+              install -m 755 /usr/bin/wayland-scanner /out/wayland-scanner
             '
-          chmod +x "$RUNNER_TEMP/legacy-wayland/wayland-scanner"
           "$RUNNER_TEMP/legacy-wayland/wayland-scanner" --version
 
       - name: Build upstream SDL-webOS (same pinned source as starterless)
