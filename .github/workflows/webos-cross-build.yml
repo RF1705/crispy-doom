@@ -65,15 +65,16 @@ jobs:
           git clone --filter=blob:none https://github.com/webosbrew/SDL-webOS.git "$RUNNER_TEMP/SDL-webOS"
           git -C "$RUNNER_TEMP/SDL-webOS" checkout --detach "$SDL_REF"
           # The SDK toolchain handles target compilation, not the host compiler.
-          cmake -S "$RUNNER_TEMP/SDL-webOS" -B "$RUNNER_TEMP/sdl-build" -G Ninja \
+          /usr/bin/cmake --version
+          /usr/bin/cmake -S "$RUNNER_TEMP/SDL-webOS" -B "$RUNNER_TEMP/sdl-build" -G Ninja \
             -DCMAKE_TOOLCHAIN_FILE="$WEBOS_SDK_ROOT/share/buildroot/toolchainfile.cmake" \
             -DCMAKE_INSTALL_PREFIX="$RUNNER_TEMP/sdl-install" \
             -DCMAKE_BUILD_TYPE=Release \
             -DWEBOS=ON -DSDL_WEBOS_BROKEN_ABI=ON \
             -DSDL_SHARED=OFF -DSDL_STATIC=ON -DSDL_TEST=OFF -DSDL_TESTS=OFF \
             -DWAYLAND_SCANNER=/usr/bin/wayland-scanner -DGAWK=/usr/bin/gawk
-          cmake --build "$RUNNER_TEMP/sdl-build" --parallel 4
-          cmake --install "$RUNNER_TEMP/sdl-build"
+          /usr/bin/cmake --build "$RUNNER_TEMP/sdl-build" --parallel 4
+          /usr/bin/cmake --install "$RUNNER_TEMP/sdl-build"
           test -f "$RUNNER_TEMP/sdl-install/lib/libSDL2.a"
 
       - name: Cross-compile Crispy Doom
