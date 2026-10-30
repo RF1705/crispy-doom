@@ -23,7 +23,7 @@ make -C webos package
 
 Environment overrides: `WEBOS_HOST`, `JOBS`, `VERSION`, `ARCH`. The first build fetches the pinned source; subsequent builds reset the disposable build checkout to that commit.
 
-The binary should be `crispy-doom`, app ID `org.rf1705.crispydoom`. The resulting IPK is in `webos/build/`. **No native build or hardware test has been performed yet.**
+The binary should be `crispy-doom`, app ID `org.crispydoom.webos`. The resulting IPK is in `webos/build/`. **No native build or hardware test has been performed yet.**
 
 ## Why not fork Chocolate Doom?
 
