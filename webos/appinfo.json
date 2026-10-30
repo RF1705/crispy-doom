@@ -1,0 +1,10 @@
+{
+  "id": "org.rf1705.crispydoom",
+  "version": "@VERSION@",
+  "vendor": "RF1705",
+  "type": "native",
+  "main": "crispy-doom",
+  "title": "Crispy Doom",
+  "icon": "icon.png",
+  "appDescription": "Experimental Crispy Doom native port for LG webOS"
+}
